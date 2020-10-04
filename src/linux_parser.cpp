@@ -74,16 +74,12 @@ float LinuxParser::MemoryUtilization() {
     std::istringstream linestream(line);
     linestream >> buffer >> MemTotal >> buffer;
     std::getline(stream,line);
-    std::istringstream linestream(line);
     linestream >> buffer >> MemFree >> buffer;
     std::getline(stream,line);
-    std::istringstream linestream(line);
     linestream >> buffer >> MemAvailable >> buffer;
     std::getline(stream,line);
-    std::istringstream linestream(line);
     linestream >> buffer >> Buffers >> buffer;
     std::getline(stream,line);
-    std::istringstream linestream(line);
     linestream >> buffer >> Cached;
   }
   float TotalUsedMem = MemTotal - MemFree;
