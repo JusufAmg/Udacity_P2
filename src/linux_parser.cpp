@@ -70,19 +70,19 @@ float LinuxParser::MemoryUtilization() {
   string line, buffer;
   std::ifstream stream(kProcDirectory + kUptimeFilename);
   if(stream.is_open()){
-    std:getline(stream,line);
+    std::getline(stream,line);
     std::istringstream linestream(line);
     linestream >> buffer >> MemTotal >> buffer;
-    std:getline(stream,line);
+    std::getline(stream,line);
     std::istringstream linestream(line);
     linestream >> buffer >> MemFree >> buffer;
-    std:getline(stream,line);
+    std::getline(stream,line);
     std::istringstream linestream(line);
     linestream >> buffer >> MemAvailable >> buffer;
-    std:getline(stream,line);
+    std::getline(stream,line);
     std::istringstream linestream(line);
     linestream >> buffer >> Buffers >> buffer;
-    std:getline(stream,line);
+    std::getline(stream,line);
     std::istringstream linestream(line);
     linestream >> buffer >> Cached;
   }
@@ -95,7 +95,7 @@ long LinuxParser::UpTime() {
   string line;
   std::ifstream stream(kProcDirectory + kUptimeFilename);
   if(stream.is_open()){
-    std:getline(stream,line);
+    std::getline(stream,line);
     std::istringstream linestream(line);
     linestream >> uptime;
   }
@@ -248,7 +248,7 @@ string LinuxParser::User(int pid) {
   string uid = LinuxParser::Uid( pid);
   std::ifstream stream(kPasswordPath);
   if (stream) {
-    while(std::getline(stream, line)){
+    while(std:::getline(stream, line)){
         std::replace(line.begin(), line.end(), ':', ' ');
         std::istringstream linestream(line);
         while(linestream >> user >> buffer >> key){
