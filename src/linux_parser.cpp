@@ -272,6 +272,6 @@ long LinuxParser::UpTime(int pid) {
             linestream >> up_time;   
         }   
     }
-  return (up_time/sysconf(_SC_CLK_TCK));
   }
+  return (up_time/sysconf(_SC_CLK_TCK));
 }
