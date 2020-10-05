@@ -83,7 +83,8 @@ float LinuxParser::MemoryUtilization() {
     linestream >> buffer >> Cached;
   }
   float TotalUsedMem = MemTotal - MemFree;
-  return (TotalUsedMem - (Buffers+Cached)) ;
+  float UsedMem = TotalUsedMem - (Buffers+Cached); 
+  return (UsedMem/MemTotal) ;
 }
 // Done: Read and return the system uptime
 long LinuxParser::UpTime() { 
