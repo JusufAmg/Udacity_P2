@@ -101,9 +101,13 @@ long LinuxParser::UpTime() {
 long LinuxParser::Jiffies() { 
   vector<string> data = CpuUtilization();
   long jiffies;
-  jiffies = stol(data[kUser_]) + stol(data[kNice_]) + stol(data[kSystem_]) + stol(data[kIRQ_]) +
-            stol(data[kSoftIRQ_]) + stol(data[kSteal_]);
+  for(auto ii : data) {
+    jiffies += stol(ii);
+  }
+  /*jiffies += stol(data[kUser_]) + stol(data[kNice_]) + stol(data[kSystem_]) + stol(data[kIRQ_]) +
+            stol(data[kSoftIRQ_]) + stol(data[kSteal_]);*/
   return jiffies;
+
 }
 // Done: Read and return the number of active jiffies for a PID
 long LinuxParser::ActiveJiffies(int pid) { 
@@ -133,7 +137,9 @@ long LinuxParser::ActiveJiffies(int pid) {
 }
 // Done: Read and return the number of active jiffies for the system
 long LinuxParser::ActiveJiffies() {
-  long active = Jiffies() - IdleJiffies();
+  vector<string> data = CpuUtilization();
+  long active += stol(data[kUser_]) + stol(data[kNice_]) + stol(data[kSystem_]) + stol(data[kIRQ_]) +
+            stol(data[kSoftIRQ_]) + stol(data[kSteal_]);
   return active;
 }
 // Done: Read and return the number of idle jiffies for the system
@@ -147,19 +153,17 @@ long LinuxParser::IdleJiffies() {
 vector<string> LinuxParser::CpuUtilization() { 
   string data;
   string line;
-  vector<string> cpu;
-  std::ifstream stream(kProcDirectory +kStatFilename);
-    if (stream) {
-        std::getline(stream,line);
-        std::istringstream linestream(line);
-        for(int ii = -1;ii<11;ii++){
-          linestream >> data;
-          if (ii == -1) continue;
-          else {
-            cpu.push_back(data);
-          }
-        }
-    }
+  vector<string> cpu = {};  
+  std::ifstream stream(kProcDirectory + kStatFilename);
+  if (stream) {
+    std::getline(stream,line);
+    std::istringstream linestream(line);
+    linestream >> data;
+    for(int ii = 0;ii<10;ii++){
+        linestream >> data;
+        cpu.push_back(data);
+      }
+  }
   return cpu;
 }
 // Done: Read and return the total number of processes
