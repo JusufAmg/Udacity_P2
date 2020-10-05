@@ -66,7 +66,7 @@ vector<int> LinuxParser::Pids() {
 }
 // Done: Read and return the system memory utilization
 float LinuxParser::MemoryUtilization() { 
-  float data,MemTotal,MemFree,MemAvailable,Buffers;
+  float data,MemTotal,MemFree,Buffers;
   string line, key;
     std::ifstream stream(kProcDirectory + kMeminfoFilename);
   if(stream){
@@ -99,16 +99,18 @@ long LinuxParser::UpTime() {
  }
 // Done: Read and return the number of jiffies for the system
 long LinuxParser::Jiffies() { 
-  vector<string> data = CpuUtilization();
+  long jiffies;
+  jiffies = ActiveJiffies() + IdleJiffies();
+  return jiffies;
+  /*vector<string> data = CpuUtilization();
   long jiffies;
   for(auto ii : data) {
     jiffies += stol(ii);
   }
-  /*jiffies += stol(data[kUser_]) + stol(data[kNice_]) + stol(data[kSystem_]) + stol(data[kIRQ_]) +
+  jiffies += stol(data[kUser_]) + stol(data[kNice_]) + stol(data[kSystem_]) + stol(data[kIRQ_]) +
             stol(data[kSoftIRQ_]) + stol(data[kSteal_]);*/
-  return jiffies;
-
 }
+
 // Done: Read and return the number of active jiffies for a PID
 long LinuxParser::ActiveJiffies(int pid) { 
   string data ;
@@ -138,7 +140,7 @@ long LinuxParser::ActiveJiffies(int pid) {
 // Done: Read and return the number of active jiffies for the system
 long LinuxParser::ActiveJiffies() {
   vector<string> data = CpuUtilization();
-  long active += stol(data[kUser_]) + stol(data[kNice_]) + stol(data[kSystem_]) + stol(data[kIRQ_]) +
+  long active = stol(data[kUser_]) + stol(data[kNice_]) + stol(data[kSystem_]) + stol(data[kIRQ_]) +
             stol(data[kSoftIRQ_]) + stol(data[kSteal_]);
   return active;
 }
