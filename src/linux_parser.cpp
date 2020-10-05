@@ -66,24 +66,24 @@ vector<int> LinuxParser::Pids() {
 }
 // Done: Read and return the system memory utilization
 float LinuxParser::MemoryUtilization() { 
-  float MemTotal,MemFree,MemAvailable,Buffers,Cached;
-  string line, buffer;
+  float data,MemTotal,MemFree,MemAvailable,Buffers;
+  string line, key;
   std::ifstream stream(kProcDirectory + kUptimeFilename);
   if(stream){
-    std::getline(stream,line);
-    std::istringstream linestream(line);
-    linestream >> buffer >> MemTotal >> buffer;
-    std::getline(stream,line);
-    linestream >> buffer >> MemFree >> buffer;
-    std::getline(stream,line);
-    linestream >> buffer >> MemAvailable >> buffer;
-    std::getline(stream,line);
-    linestream >> buffer >> Buffers >> buffer;
-    std::getline(stream,line);
-    linestream >> buffer >> Cached;
-  }
+    while(std::getline(stream,line)) {
+      std::istringstream linestream(line);
+      linestream >>key >> data;
+      if (key == "MemTotal:") MemTotal= data;
+        else if (key == "MemFree:") MemFree = data; 
+        else if (key == "MemAvailable:") MemAvailable = data;
+        else if (key == "Buffers:") {
+          Buffers = data;
+          break;
+        }
+      }
+    }
   float TotalUsedMem = MemTotal - MemFree;
-  float UsedMem = TotalUsedMem - (Buffers+Cached); 
+  float UsedMem = TotalUsedMem - Buffers; 
   return (UsedMem/MemTotal) ;
 }
 // Done: Read and return the system uptime
@@ -253,7 +253,7 @@ string LinuxParser::User(int pid) {
     while(std::getline(stream, line)){
         std::replace(line.begin(), line.end(), ':', ' ');
         std::istringstream linestream(line);
-        linestream >> user >> buffer >> key)
+        linestream >> user >> buffer >> key;
         if (key == uid) {
           break;
         }
