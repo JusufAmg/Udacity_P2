@@ -17,12 +17,12 @@ int Process::Pid() {
 }
 // TODO: Return this process's CPU utilization
 float Process::CpuUtilization() {
-    return cpuutilization_;
+    return this->cpuutilization_;
  }
  void Process::CpuUtilization(int pid) {
     float pid_jiffies = LinuxParser::ActiveJiffies(pid);
     float system_jiffies = LinuxParser::ActiveJiffies();
-    cpuutilization_ = (pid_jiffies / system_jiffies);
+    this->cpuutilization_ = (pid_jiffies / system_jiffies);
  }
 // DOne: Return the command that generated this process
 string Process::Command() { 
