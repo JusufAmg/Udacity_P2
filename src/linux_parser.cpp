@@ -69,7 +69,7 @@ float LinuxParser::MemoryUtilization() {
   float MemTotal,MemFree,MemAvailable,Buffers,Cached;
   string line, buffer;
   std::ifstream stream(kProcDirectory + kUptimeFilename);
-  if(stream.is_open()){
+  if(stream){
     std::getline(stream,line);
     std::istringstream linestream(line);
     linestream >> buffer >> MemTotal >> buffer;
@@ -169,12 +169,12 @@ int LinuxParser::TotalProcesses() {
     string line;
     std::ifstream stream(kProcDirectory +kStatFilename);
     if (stream) {
-        std::getline(stream,line);
-        std::istringstream linestream(line);
-        while(linestream >> key >> total){
-            if (key == "processes") {
-                break;
-            }
+        while(std::getline(stream,line)){
+          std::istringstream linestream(line);
+          linestream >> key >> total;
+          if (key == "processes") {
+            break;
+          }        
         }
     }
     return total;
@@ -186,16 +186,17 @@ int LinuxParser::RunningProcesses() {
     string line;
     std::ifstream stream(kProcDirectory +kStatFilename);
     if (stream) {
-        std::getline(stream,line);
-        std::istringstream linestream(line);
-        while(linestream >> key >> running){
-            if (key == "procs_running") {
-                break;
+        while(std::getline(stream,line)){
+          std::istringstream linestream(line);
+          linestream >> key >> running;
+          if (key == "procs_running") {
+              break;
             }
         }
     }
     return running;
 }
+
 // Done: Read and return the command associated with a process
 string LinuxParser::Command(int pid) { 
     string command;
@@ -251,13 +252,12 @@ string LinuxParser::User(int pid) {
     while(std::getline(stream, line)){
         std::replace(line.begin(), line.end(), ':', ' ');
         std::istringstream linestream(line);
-        while(linestream >> user >> buffer >> key){
-            if (key == uid) {
-                break;
-            }
-        }   
-    }   
-  }
+        linestream >> user >> buffer >> key)
+        if (key == uid) {
+          break;
+        }
+    }  
+  }  
   return user;
 }
 // Done: Read and return the uptime of a process
