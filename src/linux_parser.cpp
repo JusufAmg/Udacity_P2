@@ -118,7 +118,7 @@ long LinuxParser::ActiveJiffies(int pid) {
         while(1){
           int ii = 1;
           linestream >> data;
-          if (ii = 14) {
+          if (ii == 14) {
             for(int jj =0;jj<4;jj++){
               jiffies += stol(data);
               linestream >> data;
@@ -154,7 +154,7 @@ vector<string> LinuxParser::CpuUtilization() {
         std::istringstream linestream(line);
         for(int ii = -1;ii<11;ii++){
           linestream >> data;
-          if (ii = -1) continue;
+          if (ii == -1) continue;
           else {
             cpu.push_back(data);
           }
@@ -173,10 +173,11 @@ int LinuxParser::TotalProcesses() {
         std::istringstream linestream(line);
         while(linestream >> key >> total){
             if (key == "processes") {
-                return total;
+                break;
             }
         }
     }
+    return total;
 }
 // Done: Read and return the number of running processes
 int LinuxParser::RunningProcesses() {    
@@ -189,10 +190,11 @@ int LinuxParser::RunningProcesses() {
         std::istringstream linestream(line);
         while(linestream >> key >> running){
             if (key == "procs_running") {
-                return running;
+                break;
             }
         }
-    } 
+    }
+    return running;
 }
 // Done: Read and return the command associated with a process
 string LinuxParser::Command(int pid) { 
@@ -202,9 +204,9 @@ string LinuxParser::Command(int pid) {
     if (stream) {
         std::getline(stream,line);
         std::istringstream linestream(line);
-        linestream >> command;
-        return command; 
+        linestream >> command; 
         }
+        return command;
     }
 // Done: Read and return the memory used by a process
 string LinuxParser::Ram(int pid) {
@@ -217,11 +219,12 @@ string LinuxParser::Ram(int pid) {
             std::istringstream linestream(line);
             while(linestream >> key >> memory >> buffer){
                 if (key == "Vmsize") {
-                    return to_string((memory / 1000)); // in MB
+                    break;
                 }
             }
         }
-    }      
+    }
+  return to_string((memory / 1000)); // in MB
 }
 // Done: Read and return the user ID associated with a process
 string LinuxParser::Uid(int pid) { 
@@ -232,10 +235,11 @@ string LinuxParser::Uid(int pid) {
         while(std::getline(stream,line)){
             std::istringstream linestream(line);
             while(linestream >> key >> uid){
-                if ( key == "Uid") return uid;
+                if ( key == "Uid") break;
             }
         }
     }
+    return uid;
 }
 // Done: Read and return the user associated with a process
 string LinuxParser::User(int pid) {
@@ -249,11 +253,12 @@ string LinuxParser::User(int pid) {
         std::istringstream linestream(line);
         while(linestream >> user >> buffer >> key){
             if (key == uid) {
-                return user;
+                break;
             }
         }   
     }   
   }
+  return user;
 }
 // Done: Read and return the uptime of a process
 long LinuxParser::UpTime(int pid) {
