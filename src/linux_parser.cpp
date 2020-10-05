@@ -117,7 +117,7 @@ long LinuxParser::ActiveJiffies(int pid) {
   int jiffies =0;
   string line;
   vector<string> cpu;
-  std::ifstream stream(kProcDirectory + to_string(pid) +kStatFilename);
+  std::ifstream stream(kProcDirectory + "/" + to_string(pid) +kStatFilename);
     if (stream) {
         std::getline(stream,line);
         std::istringstream linestream(line);
@@ -207,7 +207,7 @@ int LinuxParser::RunningProcesses() {
 string LinuxParser::Command(int pid) { 
     string command;
     string line;
-    std::ifstream stream(kProcDirectory + to_string(pid) + kCmdlineFilename);
+    std::ifstream stream(kProcDirectory + "/" + to_string(pid) + kCmdlineFilename);
     if (stream) {
         std::getline(stream,line);
         std::istringstream linestream(line);
@@ -220,7 +220,7 @@ string LinuxParser::Ram(int pid) {
     string key,buffer;
     int memory;
     string line;
-    std::ifstream stream(kProcDirectory + to_string(pid) + kStatusFilename);
+    std::ifstream stream(kProcDirectory  + "/" + to_string(pid) + kStatusFilename);
     if (stream) {
         while(std::getline(stream,line)){
             std::istringstream linestream(line);
@@ -237,7 +237,7 @@ string LinuxParser::Ram(int pid) {
 string LinuxParser::Uid(int pid) { 
     string key,uid;
     string line;
-    std::ifstream stream(kProcDirectory + to_string(pid) + kStatusFilename);
+    std::ifstream stream(kProcDirectory + "/" + to_string(pid) + kStatusFilename);
     if (stream) {
         while(std::getline(stream,line)){
             std::istringstream linestream(line);
@@ -252,7 +252,7 @@ string LinuxParser::Uid(int pid) {
 string LinuxParser::User(int pid) {
   string key,user,buffer;
   string line;
-  string uid = LinuxParser::Uid( pid);
+  string uid = LinuxParser::Uid(pid);
   std::ifstream stream(kPasswordPath);
   if (stream) {
     while(std::getline(stream, line)){
@@ -263,14 +263,14 @@ string LinuxParser::User(int pid) {
           break;
         }
     }  
-  }  
+  }
   return user;
 }
 // Done: Read and return the uptime of a process
 long LinuxParser::UpTime(int pid) {
   long up_time;
   string line;
-  std::ifstream stream(kProcDirectory + to_string(pid) + kStatFilename);
+  std::ifstream stream(kProcDirectory + "/" + to_string(pid) + kStatFilename);
   if (stream) {
     while(std::getline(stream, line)){
         std::istringstream linestream(line);
