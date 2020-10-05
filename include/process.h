@@ -21,6 +21,7 @@ class Process {
  private:
     int pid_;
     float cpuutilization_;
+    friend class System;
 };
 
 #endif
