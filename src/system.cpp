@@ -16,8 +16,7 @@ using std::vector;
 
 // Done: Return the system's CPU
 Processor& System::Cpu() { 
-    Processor x;
-    return x;
+    return this->cpu_;
      }
 // Done: Return a container composed of the system's processes
 vector<Process>& System::Processes() {
