@@ -28,6 +28,7 @@ class Processor {
     long jiffies_;
     long active_;
     long idle_;
+    //float cpu_;
 };
 
 #endif

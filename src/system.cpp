@@ -15,7 +15,10 @@ using std::string;
 using std::vector;
 
 // Done: Return the system's CPU
-Processor& System::Cpu() { return this->cpu_; }
+Processor& System::Cpu() { 
+    Processor x;
+    return x;
+     }
 // Done: Return a container composed of the system's processes
 vector<Process>& System::Processes() {
     vector<int> pid = LinuxParser::Pids();
@@ -24,7 +27,7 @@ vector<Process>& System::Processes() {
         x.pid_ = ii;
         x.command_ = LinuxParser::Command(ii);
         x.ram_ = LinuxParser::Ram(ii);
-        x.cpuutilization_ =(LinuxParser::ActiveJiffies(pid) / LinuxParser::ActiveJiffies());
+        x.cpuutilization_ =(LinuxParser::ActiveJiffies(ii) / LinuxParser::ActiveJiffies());
         x.user_ =  LinuxParser::User(ii);
         x.uptime_ = LinuxParser::UpTime(ii);
         processes_.push_back(x);

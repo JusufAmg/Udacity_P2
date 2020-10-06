@@ -3,7 +3,7 @@
 
 // TODO: Return the aggregate CPU utilization
 float Processor::Utilization() {
-    //long idle = LinuxParser::IdleJiffies();
+    long idle = LinuxParser::IdleJiffies();
     long active = LinuxParser::ActiveJiffies();
     long total =  LinuxParser::Jiffies();
     float CPU_Percentage = active / total;
