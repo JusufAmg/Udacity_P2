@@ -6,6 +6,7 @@
 
 #include "process.h"
 #include "processor.h"
+#include "linux_parser.h"
 #include "system.h"
 
 using std::set;
@@ -21,9 +22,13 @@ vector<Process>& System::Processes() {
     for (int ii : pid ) {
         Process x;
         x.pid_ = ii;
+        x.command_ = LinuxParser::Command(pid);
+        x.ram_ = LinuxParser::Ram(pid);
+        x.cpuutilization_ = Process::CpuUtilization(int pid);
+        x.user_ =  LinuxParser::User(pid);
+        x.uptime_ = LinuxParser::UpTime(pid);
         processes_.push_back(x);
     }
-    //std::sort(processes_.begin(), processes_.end());
     return processes_;
 }
 // Done: Return the system's kernel identifier (string)
