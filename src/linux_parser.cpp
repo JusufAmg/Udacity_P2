@@ -273,17 +273,17 @@ string LinuxParser::User(int pid) {
 }
 // Done: Read and return the uptime of a process
 long LinuxParser::UpTime(int pid) {
-  long temp_up_time,up_time;
+  long up_time;
+  string temp;
+  vector<string> data;
   string line;
   std::ifstream stream(kProcDirectory + "/" + to_string(pid) + kStatFilename);
   if (stream) {
-    std::getline(stream, line)){
+    std::getline(stream, line);
     std::istringstream linestream(line);
-      for(int ii = 0;ii<22;ii++){
-        linestream >> temp_up_time;
-        up_time =temp_up_time;
-      }   
+    while(linestream >> temp){
+    data.push_back(temp);
     }
   }
-  return (up_time/sysconf(_SC_CLK_TCK));
+  return up_time = stol(data[21])/sysconf(_SC_CLK_TCK);
 }
