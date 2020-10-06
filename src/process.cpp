@@ -19,11 +19,11 @@ int Process::Pid() {
 float Process::CpuUtilization() {
     return cpuutilization_;
  }
- void Process::CpuUtilization(int pid) {
+ /*void Process::CpuUtilization(int pid) {
     float pid_jiffies = LinuxParser::ActiveJiffies(pid);
     float system_jiffies = LinuxParser::ActiveJiffies();
     cpuutilization_ = (pid_jiffies / system_jiffies);
- }
+ }*/
 // DOne: Return the command that generated this process
 string Process::Command() { 
     return command_;

@@ -24,7 +24,7 @@ vector<Process>& System::Processes() {
         x.pid_ = ii;
         x.command_ = LinuxParser::Command(ii);
         x.ram_ = LinuxParser::Ram(ii);
-        x.cpuutilization_ = Process::CpuUtilization(int ii);
+        x.cpuutilization_ =(LinuxParser::ActiveJiffies(pid) / LinuxParser::ActiveJiffies());
         x.user_ =  LinuxParser::User(ii);
         x.uptime_ = LinuxParser::UpTime(ii);
         processes_.push_back(x);
