@@ -23,7 +23,7 @@ class Process {
     float cpuutilization_;
     std::string command_;
     std::string user_;
-    long int uptime_;
+    long uptime_;
     std::string ram_;
     friend class System;
 };

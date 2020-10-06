@@ -22,11 +22,11 @@ vector<Process>& System::Processes() {
     for (int ii : pid ) {
         Process x;
         x.pid_ = ii;
-        x.command_ = LinuxParser::Command(pid);
-        x.ram_ = LinuxParser::Ram(pid);
-        x.cpuutilization_ = Process::CpuUtilization(int pid);
-        x.user_ =  LinuxParser::User(pid);
-        x.uptime_ = LinuxParser::UpTime(pid);
+        x.command_ = LinuxParser::Command(ii);
+        x.ram_ = LinuxParser::Ram(ii);
+        x.cpuutilization_ = Process::CpuUtilization(int ii);
+        x.user_ =  LinuxParser::User(ii);
+        x.uptime_ = LinuxParser::UpTime(ii);
         processes_.push_back(x);
     }
     return processes_;
