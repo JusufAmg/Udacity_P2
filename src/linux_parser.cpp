@@ -102,8 +102,7 @@ long LinuxParser::Jiffies() {
   long jiffies;
   jiffies = ActiveJiffies() + IdleJiffies();
   return jiffies;
-  /*vector<string> data = CpuUtilization();
-  long jiffies;
+  /*long jiffies;
   for(auto ii : data) {
     jiffies += stol(ii);
   }
@@ -113,7 +112,7 @@ long LinuxParser::Jiffies() {
 
 // Done: Read and return the number of active jiffies for a PID
 long LinuxParser::ActiveJiffies(int pid) { 
-  string data ;
+  long data ;
   int jiffies =0;
   string line;
   vector<string> cpu;
@@ -126,11 +125,9 @@ long LinuxParser::ActiveJiffies(int pid) {
           linestream >> data;
           if (ii == 14) {
             for(int jj =0;jj<4;jj++){
-              jiffies += stol(data);
+              jiffies += data;
               linestream >> data;
             }
-            ii = 18;
-            break;
           }
           ii++;
         }

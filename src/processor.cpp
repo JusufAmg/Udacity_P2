@@ -3,9 +3,13 @@
 
 // TODO: Return the aggregate CPU utilization
 float Processor::Utilization() {
-    long idle = LinuxParser::IdleJiffies();
-    long active = LinuxParser::ActiveJiffies();
-    long total =  LinuxParser::Jiffies();
-    float CPU_Percentage = active / total;
-    return (CPU_Percentage) ;
+    Idle_= LinuxParser::IdleJiffies();
+    NonIdle_= LinuxParser::ActiveJiffies();
+    Total_=Idle_ + NonIdle_;
+    totald = Total_ - PrevIdle_;
+    idled = Idle_ - PrevIdle_;
+    return ((totald - idled)/totald ) ;
+    PrevIdle_ = Idle_;
+    PrevNonIdle_ = NonIdle_;
+    PrevTotal_ = Total_;
 }

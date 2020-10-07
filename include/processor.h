@@ -4,7 +4,7 @@
 class Processor {
  public:
     float Utilization();  // TODO: See src/processor.cpp
-    void Jiffies(long jiffies) {
+    /*void Jiffies(long jiffies) {
         jiffies_ = jiffies;
     };
     long Jiffies() {
@@ -21,14 +21,19 @@ class Processor {
     }
     long PrevIdle () {
         return idle_;
-    }
+    }*/
 
   // TODO: Declare any necessary private members
  private:
-    long jiffies_;
-    long active_;
-    long idle_;
-    Processor cpu_;
+    long Total_;
+    long NonIdle_;
+    long Idle_;
+    long PrevTotal_=0;
+    long PrevNonIdle_=0;
+    long PrevIdle_=0;
+    float idled;
+    float totald;
+    
 };
 
 #endif
