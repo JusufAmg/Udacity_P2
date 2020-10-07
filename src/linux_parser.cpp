@@ -225,7 +225,7 @@ string LinuxParser::Ram(int pid) {
                 if (key == "VmSize:") {
                     memory = temp_memory;
                     break;
-                }
+                } 
             }
         }
     }
