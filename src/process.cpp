@@ -27,6 +27,9 @@ string Process::Command() {
 string Process::Ram() { 
     return ram_; 
 }
+void Process::Ram(int ii){
+    ram_ = LinuxParser::Ram(int ii) ;
+}
 // Done: Return the user (name) that generated this process
 string Process::User() { 
     return  user_; 
@@ -34,6 +37,9 @@ string Process::User() {
 // Done: Return the age of this process (in seconds)
 long int Process::UpTime() { 
     return uptime_;
+}
+void Process::UpTime(int ii){
+    uptime_ = LinuxParser::UpTime(ii);
 }
 void Process::CpuUtilization(int pid) {
   float a_process = static_cast<float>(LinuxParser::ActiveJiffies(pid));

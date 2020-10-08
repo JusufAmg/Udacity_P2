@@ -26,10 +26,10 @@
             Process x;
             x.pid_ = ii;
             x.command_ = LinuxParser::Command(ii);
-            x.ram_ = LinuxParser::Ram(ii);
+            x.Ram(ii); 
             x.CpuUtilization(ii);
             x.user_ =  LinuxParser::User(ii);
-            x.uptime_ = LinuxParser::UpTime(ii);
+            x.UpTime(); 
             processes_.push_back(x);
         }
         sort(processes_.begin(),processes_.end());
