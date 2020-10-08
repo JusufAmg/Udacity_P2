@@ -23,15 +23,22 @@ vector<Process>& System::Processes() {
     vector<int> pid = LinuxParser::Pids();
     for (int ii : pid ) {
         Process x;
-        x.pid_ = ii;
+        /*x.pid_ = ii;
         x.command_ = LinuxParser::Command(ii);
         x.ram_ = LinuxParser::Ram(ii);
         x.cpuutilization_ =(LinuxParser::ActiveJiffies(ii) / (LinuxParser::IdleJiffies()+ LinuxParser::ActiveJiffies()));
         x.user_ =  LinuxParser::User(ii);
         x.uptime_ = LinuxParser::UpTime(ii);
-        processes_.push_back(x);
+        processes_.push_back(x);*/
+        p.Pid(pid);
+        p.User(pid);
+        p.Command(pid);
+        p.CpuUtilization(pid);
+        p.Ram(pid);
+        p.UpTime(pid);
+        processes_.push_back(p);
     }
-    sort(processes_.begin(),processes_.end());
+    //sort(processes_.begin(),processes_.end());
     return processes_;
 }
 // Done: Return the system's kernel identifier (string)
