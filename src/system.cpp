@@ -31,6 +31,7 @@ vector<Process>& System::Processes() {
         x.uptime_ = LinuxParser::UpTime(ii);
         processes_.push_back(x);
     }
+    sort(processes_.begin(),processes_.end());
     return processes_;
 }
 // Done: Return the system's kernel identifier (string)

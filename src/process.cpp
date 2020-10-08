@@ -42,5 +42,4 @@ bool Process::operator<(Process const& a) const {
     if(cpuutilization_<a.cpuutilization_) {
         return true;
     } else return false;
-     
 }
