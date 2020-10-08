@@ -28,7 +28,7 @@ string Process::Ram() {
     return ram_; 
 }
 void Process::Ram(int ii){
-    ram_ = LinuxParser::Ram(int ii) ;
+    ram_ = LinuxParser::Ram(ii) ;
 }
 // Done: Return the user (name) that generated this process
 string Process::User() { 
