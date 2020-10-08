@@ -43,7 +43,5 @@ void Process::CpuUtilization(int pid) {
 // TODO: Overload the "less than" comparison operator for Process objects
 // REMOVE: [[maybe_unused]] once you define the function
 bool Process::operator<(Process const& a) const {
-    long x =  (CpuUtilization());
-    long y =  a.cpuutilization_;
-    return  x < y;
+    return  a.cpuutilization_ < this->cpuutilization_;
 }
