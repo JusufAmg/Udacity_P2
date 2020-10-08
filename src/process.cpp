@@ -19,7 +19,6 @@ int Process::Pid() {
 float Process::CpuUtilization() {
     return cpuutilization_;
  }
-
 // Done: Return the command that generated this process
 string Process::Command() { 
     return command_;
@@ -39,35 +38,6 @@ long int Process::UpTime() {
 // TODO: Overload the "less than" comparison operator for Process objects
 // REMOVE: [[maybe_unused]] once you define the function
 bool Process::operator<(Process const& a) const {
-    if(cpuutilization_<a.cpuutilization_) {
-        return true;
-    } else return false;
-}
-
-void Process::Pid(int pid) {
-  pid_ = pid;
-}
-
-void Process::User(int pid) {
-  user_ = LinuxParser::User(pid);
-}
-
-void Process::Command(int pid) {
-  command_ = LinuxParser::Command(pid);
-}
-
-void Process::CpuUtilization(int pid) {
-  float a_process = static_cast<float>(LinuxParser::ActiveJiffies(pid));
-  float a_processor = static_cast<float>(LinuxParser::ActiveJiffies());
-  cpuutilization_ = a_process / a_processor;
-}
-
-void Process::Ram(int pid) {
-  int kbytes = std::atoi(LinuxParser::Ram(pid).c_str());
-  int mbytes = kbytes / 1000; // in MB
-  ram_ = std::to_string(mbytes);
-}
-
-void Process::UpTime(int pid){
-  uptime_ = LinuxParser::UpTime(pid);
+    //Process::CpuUtilization() < a.
+    return true; 
 }
