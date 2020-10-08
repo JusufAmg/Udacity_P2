@@ -35,9 +35,15 @@ string Process::User() {
 long int Process::UpTime() { 
     return uptime_;
 }
+void Process::CpuUtilization(int pid) {
+  float a_process = static_cast<float>(LinuxParser::ActiveJiffies(pid));
+  float a_processor = static_cast<float>(LinuxParser::ActiveJiffies());
+  cpuutilization_ = a_process / a_processor;
+}
 // TODO: Overload the "less than" comparison operator for Process objects
 // REMOVE: [[maybe_unused]] once you define the function
 bool Process::operator<(Process const& a) const {
-    //Process::CpuUtilization() < a.
-    return true; 
+    long x =  (CpuUtilization());
+    long y =  a.cpuutilization_;
+    return  x < y;
 }

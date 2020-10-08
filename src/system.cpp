@@ -26,12 +26,12 @@
             x.pid_ = ii;
             x.command_ = LinuxParser::Command(ii);
             x.ram_ = LinuxParser::Ram(ii);
-            x.cpuutilization_ =(LinuxParser::ActiveJiffies(ii) / (LinuxParser::IdleJiffies()+ LinuxParser::ActiveJiffies()));
+            x.CpuUtilization(ii);
             x.user_ =  LinuxParser::User(ii);
             x.uptime_ = LinuxParser::UpTime(ii);
             processes_.push_back(x);
         }
-        //sort(processes_.begin(),processes_.end());
+        sort(processes_.begin(),processes_.end());
         return processes_;
     }
     // Done: Return the system's kernel identifier (string)
