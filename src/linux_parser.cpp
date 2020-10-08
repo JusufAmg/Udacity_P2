@@ -114,12 +114,11 @@ long LinuxParser::ActiveJiffies(int pid) {
     std::getline(filestream, line);
     std::stringstream sstream(line);
     while (std::getline(sstream, line, ' ')) {
-      buffer.push_back(line);  // std::cout << line << std::endl;
+      buffer.push_back(line);
     }
-    for (int ii =13;ii <17,ii++){
+    for (int ii =13;ii <17;ii++){
       jiffies+= std::stol(data[ii])  
     }
-//    jiffies= std::stol(buffer[13]) + std::stol(buffer[14]) + std::stol(buffer[15]) + std::stol(buffer[16]);
   }
   return jiffies;
 }
