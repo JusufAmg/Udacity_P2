@@ -102,31 +102,26 @@ long LinuxParser::Jiffies() {
   long jiffies;
   jiffies = ActiveJiffies() + IdleJiffies();
   return jiffies;
-  /*long jiffies;
-  for(auto ii : data) {
-    jiffies += stol(ii);
-  }
-  jiffies += stol(data[kUser_]) + stol(data[kNice_]) + stol(data[kSystem_]) + stol(data[kIRQ_]) +
-            stol(data[kSoftIRQ_]) + stol(data[kSteal_]);*/
 }
 
 // Done: Read and return the number of active jiffies for a PID
 long LinuxParser::ActiveJiffies(int pid) {
-  std::vector<std::string> buffer;
-  std::string line;
-  long totalTime{0};
-  std::ifstream filestream(kProcDirectory + std::to_string(pid) +
-                           kStatFilename);
-  if (filestream.is_open()) {
+  vector<std::string> data;
+  string line;
+  long jiffies = 0;
+  std::ifstream filestream(kProcDirectory + "/" + std::to_string(pid) +kStatFilename);
+  if (filestream) {
     std::getline(filestream, line);
     std::stringstream sstream(line);
     while (std::getline(sstream, line, ' ')) {
       buffer.push_back(line);  // std::cout << line << std::endl;
     }
-    totalTime = std::stol(buffer[13]) + std::stol(buffer[14]) +
-                std::stol(buffer[15]) + std::stol(buffer[16]);
+    for (int ii =13;ii <17,ii++){
+      jiffies+= std::stol(data[ii])  
+    }
+//    jiffies= std::stol(buffer[13]) + std::stol(buffer[14]) + std::stol(buffer[15]) + std::stol(buffer[16]);
   }
-  return totalTime;
+  return jiffies;
 }
 // Done: Read and return the number of active jiffies for the system
 long LinuxParser::ActiveJiffies() {

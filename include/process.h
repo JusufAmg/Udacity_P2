@@ -16,7 +16,7 @@ class Process {
   std::string Ram();                       // TODO: See src/process.cpp
   void Ram(int);
   long int UpTime();                       // TODO: See src/process.cpp
-  void UpTime(int);
+  void UpTime();
   bool operator<(Process const& a) const;  // TODO: See src/process.cpp
   // TODO: Declare any necessary private members
  private:
@@ -24,7 +24,7 @@ class Process {
     float cpuutilization_;
     std::string command_;
     std::string user_;
-    long uptime_;
+    long int uptime_;
     std::string ram_;
     friend class System;
 };

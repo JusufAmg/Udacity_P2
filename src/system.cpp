@@ -29,7 +29,7 @@
             x.Ram(ii); 
             x.CpuUtilization(ii);
             x.user_ =  LinuxParser::User(ii);
-            x.UpTime(); 
+            x.UpTime(ii); 
             processes_.push_back(x);
         }
         sort(processes_.begin(),processes_.end());
