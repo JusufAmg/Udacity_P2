@@ -20,6 +20,7 @@
         }
     // Done: Return a container composed of the system's processes
     vector<Process>& System::Processes() {
+        processes_.clear();
         vector<int> pid = LinuxParser::Pids();
         for (int ii : pid ) {
             Process x;
