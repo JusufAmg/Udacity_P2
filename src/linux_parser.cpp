@@ -103,7 +103,6 @@ long LinuxParser::Jiffies() {
   jiffies = ActiveJiffies() + IdleJiffies();
   return jiffies;
 }
-
 // Done: Read and return the number of active jiffies for a PID
 long LinuxParser::ActiveJiffies(int pid) {
   vector<std::string> data;
@@ -114,10 +113,10 @@ long LinuxParser::ActiveJiffies(int pid) {
     std::getline(filestream, line);
     std::stringstream sstream(line);
     while (std::getline(sstream, line, ' ')) {
-      buffer.push_back(line);
+      data.push_back(line);
     }
     for (int ii =13;ii <17;ii++){
-      jiffies+= std::stol(data[ii])  
+      jiffies+= std::stol(data[ii]);
     }
   }
   return jiffies;
@@ -187,7 +186,6 @@ int LinuxParser::RunningProcesses() {
     }
     return running;
 }
-
 // Done: Read and return the command associated with a process
 string LinuxParser::Command(int pid) { 
     string command;

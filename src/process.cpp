@@ -46,8 +46,7 @@ void Process::CpuUtilization(int pid) {
   float a_processor = static_cast<float>(LinuxParser::ActiveJiffies());
   cpuutilization_ = a_process / a_processor;
 }
-// TODO: Overload the "less than" comparison operator for Process objects
-// REMOVE: [[maybe_unused]] once you define the function
+// Done: Overload the "less than" comparison operator for Process objects
 bool Process::operator<(Process const& a) const {
     return  a.cpuutilization_ < this->cpuutilization_;
 }
