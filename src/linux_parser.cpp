@@ -268,5 +268,5 @@ long LinuxParser::UpTime(int pid) {
     data.push_back(temp);
     }
   }
-  return up_time = stol(data[21])/sysconf(_SC_CLK_TCK);
+  return up_time =(UpTime() - stol(data[21])/sysconf(_SC_CLK_TCK));
 }
